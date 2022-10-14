@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const app = express(); 
 const mongoose = require('mongoose')
-const { checkCsrfError , csrfMiddleware } = require('./src/middlewares/middleware')
+const { checkCsrfError , csrfMiddleware , middlewareGlobal } = require('./src/middlewares/middleware')
 mongoose.connect( process.env.CONNECTION_STRING , {useNewUrlParser: true , useUnifiedTopology : true })
     .then( () => {
         console.log('\nconectado com a base de dados')
@@ -42,6 +42,8 @@ app.set('view engine' , 'ejs' );
 app.use(csrf())
 app.use(checkCsrfError)
 app.use(csrfMiddleware)
+app.use(middlewareGlobal)
+
 app.use(routes);
 
 app.on('pronto' , ()=>{

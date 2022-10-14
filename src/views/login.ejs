@@ -7,9 +7,10 @@
             <div class="col-lg-6 my-5">
                 <h1 class="text-center">Login</h1>
 
-                <div class="alert alert-danger">Um erro qualquer</div>
+                <form  action="/login" method="post">
 
-                <form  action="/register" method="post">
+                  <%- include('includes/messages'); %>
+
                    <input type="hidden" value="<%= csrfToken  %>" name="_csrf">
                     <div class="mb-2">
                       <label for="emailInput" class="form-label">Email</label>

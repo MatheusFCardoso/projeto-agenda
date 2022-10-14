@@ -7,16 +7,28 @@ exports.index = (req , res) =>{
 }
 
 exports.postIndex = async (req , res) =>{
-    const user = new User(req.body);
-    await user.register()
+    try{
 
-    if(user.errors.length > 0){
-        req.flash('errors' , user.errors)
-        req.session.save(()=> {
-            res.redirect('back');
-        });
-        return;
+        const user = new User(req.body);
+        await user.register()
+    
+        if(user.errors.length > 0){
+            req.flash('errors' , user.errors)
+            req.session.save( () => {
+               return res.redirect('/cadastrar');
+            });
+            return;
+        }
+        
+        req.flash('succes' , 'Seu usuário foi criado com sucesso.' );
+        req.session.save( () => {
+            return res.redirect('/cadastrar');
+         });
+        
+    }catch(err){
+        console.log(err)
+        res.render('404')
     }
+   
 
-    res.send(user.errors);
 }
