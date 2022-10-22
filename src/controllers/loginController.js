@@ -2,7 +2,8 @@ const { async } = require('regenerator-runtime')
 const User = require('../models/UserModel')
 
 exports.index = (req , res) =>{
-    res.render('login')
+    if(req.session.user) return res.redirect('/');
+    res.render('login');
 }
 
 exports.login = async (req , res) =>{

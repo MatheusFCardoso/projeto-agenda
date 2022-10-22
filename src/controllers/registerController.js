@@ -3,6 +3,7 @@ const { LoaderTargetPlugin } = require('webpack');
 const User = require('../models/UserModel')
 
 exports.index = (req , res) =>{
+    if(req.session.user) res.redirect('/');
     res.render('register')
 }
 
